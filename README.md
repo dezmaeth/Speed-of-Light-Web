@@ -6,5 +6,5 @@ This engine is being develop in order to create an open source game using HTML5 
 diferent particles interaction that spawns from the player, the player being a something like a comet that accelerates on a horizontal
 map, avoiding obstacles and crushing others.
 
-This game will be for free, open source, and its supported by <a href="mcast.cl">MCAST&reg;</a> 
+This game will be for free, open source, and its supported by <a href="http://mcast.cl">MCAST&reg;</a> 
 </p>
