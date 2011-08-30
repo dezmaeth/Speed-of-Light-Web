@@ -10,7 +10,8 @@ sMain.ptcls = new Array;
 sMain.container = new Object;
 sMain.numPtcl = 10;
 sMain.render = false;
-sMain.fps = 15;
+sMain.p = 1;
+sMain.fps = 10;
 sMain.container.w = 800;
 sMain.container.h = 600;
 sMain.constructor = function(key) {
@@ -35,7 +36,7 @@ sMain.startRendering = function() {
 sMain.drawFrame = function() {
 	if (sMain.render) {
 	    console.log("draw");
-		ctx.fillRect(0,0,sMain.container.w,sMain.container.h);
+		//ctx.fillRect(0,0,sMain.container.w,sMain.container.h);
 		sMain.updatePtcl();
 		sMain.renderParticles();
 		
@@ -54,12 +55,16 @@ sMain.renderParticles = function () {
 }
 sMain.updatePtcl = function() {
 	for (var i in sMain.ptcls) {
-		sMain.ptcls[i].x += 2;
-		if (sMain.ptcls[i].x>(sMain.player.x+50))
-		sMain.ptcls[i].y += (Math.floor(Math.random()*5)*sMain.ptcls[i].d);
-		else 
-		sMain.ptcls[i].y += (Math.floor(Math.random()*5)*(sMain.ptcls[i].d));
+		x = sMain.ptcls[i].x;
+		y = sMain.ptcls[i].y;
+		a = 100;
+		b = 200;
+		sMain.ptcls[i].x = (sMain.player.x + sMain.p) * sMain.ptcls[i].d;//(Math.sqrt(Math.pow(a,2)*Math.pow(b,2)-Math.pow(y,2)*Math.pow(a,2))/b);
+		sMain.ptcls[i].y = sMain.player.y + ((Math.sqrt(Math.pow(a,2)*Math.pow(b,2)+Math.pow(x,2)*Math.pow(b,2))/a));
+		console.log(sMain.ptcls[i].x);
+		console.log(sMain.ptcls[i].y);
 	}
+	sMain.p+= 5;
 }
 
 sMain.createPtcl = function(i) {
@@ -69,11 +74,13 @@ sMain.createPtcl = function(i) {
 		sMain.ptcls[i].d = -1;
 		else 
 		sMain.ptcls[i].d = 1;
- 		sMain.ptcls[i].x = sMain.player.x+(i*10);
+ 		sMain.ptcls[i].x = sMain.player.x;
 		sMain.ptcls[i].y = sMain.player.y;
-		sMain.ptcls[i].v = 1;
+		sMain.ptcls[i].vx = 1;
+		sMain.ptcls[i].vy = 1;
 		sMain.ptcls[i].w = 10;
 		sMain.ptcls[i].h = 10;
+		sMain.ptcls[i].t = 0; 
 		/* resource */
 		img = new Image;
 		img.src= "img/star_mini_ani.gif";
@@ -82,7 +89,7 @@ sMain.createPtcl = function(i) {
 
 sMain.spawnPlayer = function() {
 	sMain.player.x = 100;
-	sMain.player.y = 300;
+	sMain.player.y = 10;
 }
 
 sMain.spawnPtcls = function() {
