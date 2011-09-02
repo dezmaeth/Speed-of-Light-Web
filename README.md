@@ -10,23 +10,28 @@ This game will be for free, open source, and its supported by <a href="http://mc
 </p>
 
 <p>
-Update 0.1 : 
-
-	* Changed rendering method from "SetInterval" to "RequestAnimationFrame", for performance and estability reasons.
+Update 0.1 :
+</p> 
+<p>
+<ul>
+	<li> Changed rendering method from "SetInterval" to "RequestAnimationFrame", for performance and estability reasons.</li>
 	
-	* Texturized meshes now in place.
+	<li> Texturized meshes now in place.</li>
 	
-	* Configuration class file now working properly.
+	<li> Configuration class file now working properly.</li>
 	
-	* Added camera controls and follow camera on player, controls are :
-			- PageUp : Move camera away
-			- PageDown : Move camera closer
-			- Home : Rotate and move away
-			- Del : Rotate and move closer
-			
-	* Added an interface on the site of the game via div's.
+	<li> Added camera controls and follow camera on player, controls are :
+                    	<ul>
+                        <li> PageUp : Move camera away</li>
+			<li> PageDown : Move camera closer </li>
+			<li> Home : Rotate and move away </li>
+			<li> Del : Rotate and move closer </li>
+                        </ul>
+	</li>
+	<li> Added an interface on the site of the game via div's.</li>
 	
-	* Changed cursor to crosshair.
+	<li> Changed cursor to crosshair.</li>
 	
-	<span style="color:red;">* Need to create a Map designer for this game, any thoughts are welcome ^_^ </span>
+	<li style="color:red;"> Need to create a Map designer for this game, any thoughts are welcome ^_^ </li>
+</ul>
 </p>
