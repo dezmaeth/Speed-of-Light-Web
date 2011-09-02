@@ -14,6 +14,18 @@ function Resources() {
   			}
 		});
 	}
+	this.get = function (path,callback) {
+		$.ajax({
+  			url: path,
+  			dataType: 'json',
+  			success: function (data) {
+  			callback(data);
+  			},
+  			404: function () {
+  				return null;
+  			}
+		});
+	}
 
 	
 	

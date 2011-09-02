@@ -14,20 +14,30 @@ function Stage() {
 	}
 	
 	this.createMap = function (){
-		var cube = sMain.stage.addCube(sMain.resources.data.stage.textures.floor);
-		sMain.scene.addObject(cube);
+		sMain.stage.meshs.push(sMain.stage.addCube(sMain.resources.data.stage.textures.floor));
+		sMain.scene.addObject(sMain.stage.meshs[sMain.stage.meshs.length-1]);
+		
+		sMain.stage.meshs.push(sMain.stage.addCube(sMain.resources.data.stage.textures.floor));
+		sMain.scene.addObject(sMain.stage.meshs[sMain.stage.meshs.length-1]);
+		
+		sMain.stage.meshs.push(sMain.stage.addCube(sMain.resources.data.stage.textures.floor));
+		sMain.scene.addObject(sMain.stage.meshs[sMain.stage.meshs.length-1]);
+		
+		//position
+		sMain.stage.meshs[1].position.x = 500;
+		
+		sMain.stage.meshs[2].position.y = 320
+		
 	}
 	
 	
 	this.startMap = function() {
-		sMain.player.movement = setInterval('sMain.stage.movePlayer()',2000/sMain.fps);
+		(function movePlayer(){
+    	  	sMain.player.position.x += 2;
+			sMain.camera.position.x = sMain.player.position.x;
+			sMain.camera.target.position.x = sMain.player.position.x;
+      		requestAnimationFrame(movePlayer);
+    	})();
 	}
-	
-	this.movePlayer = function () {
-		sMain.player.position.x += 1;
-		sMain.camera.target.position
-	}
-	
-		
 
 }

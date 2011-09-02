@@ -21,10 +21,10 @@ function Controls(player) {
   		// checkeo que este dentro del canvas
   		if (evt.pageX > this.canvasMinX && evt.pageX < this.canvasMaxX && evt.pageY > this.canvasMinY && evt.pageY < this.canvasMaxY) {
 	  		// mueve luz dentro del stage (esto es opcional)
-	    	light.position.x = (evt.pageX - (this.canvasMinX + (sMain.canvas.WIDTH/2)));
-			light.position.y = (evt.pageY - (this.canvasMinY + (sMain.canvas.HEIGHT/2)))*-1;
-			light.mesh.position.x = (evt.pageX - ((sMain.canvas.WIDTH/2)));
-			light.mesh.position.y = (evt.pageY - ((sMain.canvas.HEIGHT/2)))*-1;
+	    	light.position.x = sMain.player.position.x+(evt.pageX - ((sMain.canvas.WIDTH/2)));
+			light.position.y = sMain.player.position.y+(evt.pageY - ((sMain.canvas.HEIGHT/2)))*-1;
+			light.mesh.position.x = sMain.player.position.x+(evt.pageX - ((sMain.canvas.WIDTH/2)));
+			light.mesh.position.y = sMain.player.position.y+(evt.pageY - ((sMain.canvas.HEIGHT/2)))*-1;
 	  	}	  		
 	}
 	
@@ -32,13 +32,22 @@ function Controls(player) {
 
 	this.key_event = function(evt)
 	{
+		console.log(evt.keyCode);
 		if (evt.keyCode==38)
-			sMain.player.position.y -= 10;
+			sMain.player.position.y += 10;
 		if (evt.keyCode==40)
-			sMain.player.position.y += 10; 
-		if (evt.keyCode==34)
-			sMain.camera.position.z -= 5;
-			sMain.camera.position.y += 5;
-			
+			sMain.player.position.y -= 10; 
+		if (evt.keyCode==36) 
+			sMain.camera.position.y -= 10;
+		if (evt.keyCode==46) 
+			sMain.camera.position.y += 10;
+		if (evt.keyCode==34) 
+			sMain.camera.position.z -= 10;
+		
+		if (evt.keyCode==33) {
+			sMain.camera.position.z += 10;
+		}
+		if (evt.keyCode==80)
+			sMain.stage.startMap();	
 	}
 }
