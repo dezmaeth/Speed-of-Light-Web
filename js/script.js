@@ -1,19 +1,23 @@
 var sMain = new Object;
 	sMain.canvas = new Object;
 	sMain.interval;
-	sMain.canvas.WIDTH = 800;
+	sMain.canvas.WIDTH = 1200;
 	sMain.canvas.HEIGHT = 600;
 	sMain.walls = new Array;
 	sMain.fps = 60;
 	sMain.currentFPS = 0;
+	sMain.resources = new Resources();
+	sMain.stage = new Stage();
+	sMain.map;
 	sMain.render = false;
 	//creamos una camara webgl, un gestor de rendering y la escena
 	sMain.renderer = new THREE.WebGLRenderer();
-	sMain.camera = new THREE.Camera(50,(sMain.canvas.WIDTH / sMain.canvas.HEIGHT),0.5,1000); 
+	sMain.camera = new THREE.Camera(50,(sMain.canvas.WIDTH / sMain.canvas.HEIGHT),0.5,100000 ); 
 	sMain.scene = new THREE.Scene();
 	sMain.container = $('#container');
+	sMain.controls = new Controls();
 	// iniciamos la camara a cierta distancia
-	sMain.camera.position.z = 600;
+	sMain.camera.position.z = 1800;
 //	sMain.camera.position.y = -845; //vista de lado
 	
 	sMain.renderer.setSize(sMain.canvas.WIDTH, sMain.canvas.HEIGHT);
@@ -42,18 +46,16 @@ var sMain = new Object;
 		clearInterval(sMain.showFPS);
 	}
 	
-	// Creamos objetos
-	var sphereMaterial = new THREE.MeshLambertMaterial(	{ color: 0xFFFFFF });
+
 	
 	//variables de la esfera
 	var radio = 40, segmentos = 32, anillos= 32;
 	
-	//creamos el mesh a partir de la geometria que vimos antes
-	sMain.player = new THREE.Mesh( new THREE.SphereGeometry(radio, segmentos, anillos),sphereMaterial);
-	
-	//sMain.player.dynamic = true;
-	// añadimos espefera a la escena
+	//creamos el mesh player
+	sMain.player = new THREE.Mesh( new THREE.SphereGeometry(radio, segmentos, anillos),new THREE.MeshLambertMaterial(	{ color: 0xFFFFFF }));
 	sMain.player.position.z = 10;
+	
+	// añadimos espefera a la escena
 	sMain.scene.addChild(sMain.player);
 	
 	// creamos una luz color blanca
@@ -63,32 +65,18 @@ var sMain = new Object;
 	light.position.y = 0;
 	light.position.z = 100;
 	light.intensity = 2;	
-	
-	
-	
-	//añadir suelo
-	var floor = new THREE.Mesh( new THREE.CubeGeometry( 10000, 300, 10 ), 
-								new THREE.MeshLambertMaterial( { color: 0xFFD700  } )
-							   );
-							 
-	sMain.addWall = function (){ 
-	var wall = new THREE.Mesh( new THREE.CubeGeometry( 20 ,100, 500 ), 
-								new THREE.MeshLambertMaterial( { color: 0xFFFFFF  } )
-							  );
-	sMain.walls.push(wall);
-	}
-	
-	sMain.drawWalls = function () {
-		for (var i in sMain.walls) 
-			sMain.scene.addChild(sMain.walls[i]);
-	}
-					
-	// añadiendo suelo
-	sMain.scene.addChild(floor);
+	// añadimos un mesh a la luz para poder verla
+	light.mesh = Object;
+	light.mesh = new THREE.Mesh(new THREE.SphereGeometry(20,16,16), new THREE.MeshLambertMaterial({ color:0xFFFFF}));
+	sMain.scene.addChild(light.mesh);
+
 	// añadiendo luz
 	sMain.scene.addChild(light);
 	// comenzamos a renderizar
 	sMain.startRendering();
 	// iniciamos controles
-	sMain.controls = new Controls();
 	sMain.controls.init(sMain.player);
+	// creamos el mapa
+	sMain.stage.init();
+	
+	

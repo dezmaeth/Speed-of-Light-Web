@@ -20,16 +20,18 @@ function Controls(player) {
   		this.canvasMaxY = this.canvasMinY + sMain.canvas.HEIGHT;
   		// checkeo que este dentro del canvas
   		if (evt.pageX > this.canvasMinX && evt.pageX < this.canvasMaxX && evt.pageY > this.canvasMinY && evt.pageY < this.canvasMaxY) {
-	    
-	    light.position.x = evt.pageX - (this.canvasMinX + (sMain.canvas.WIDTH/2));
-		light.position.y = (evt.pageY - (this.canvasMinY + (sMain.canvas.HEIGHT/2)))*-1;
-	  	}
-	  		
+	  		// mueve luz dentro del stage (esto es opcional)
+	    	light.position.x = (evt.pageX - (this.canvasMinX + (sMain.canvas.WIDTH/2)));
+			light.position.y = (evt.pageY - (this.canvasMinY + (sMain.canvas.HEIGHT/2)))*-1;
+			light.mesh.position.x = (evt.pageX - ((sMain.canvas.WIDTH/2)));
+			light.mesh.position.y = (evt.pageY - ((sMain.canvas.HEIGHT/2)))*-1;
+	  	}	  		
 	}
+	
+	
 
 	this.key_event = function(evt)
 	{
-		console.log('key:'+evt.keyCode);
 		if (evt.keyCode==38)
 			sMain.player.position.y -= 10;
 		if (evt.keyCode==40)
