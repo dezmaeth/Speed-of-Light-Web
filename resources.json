@@ -1,6 +1,11 @@
 {"stage":{ 
-		"textures": {
-			"floor":"img/metal.jpg"
+			"textures": {
+				"floor":"img/metal.jpg"
+				},
+			"music": {
+				"track":"music/stage1/1.ogg",
+				"track":"music/stage1/2.ogg",
+				"track":"music/stage1/end.ogg"
 			}
 		}
 }

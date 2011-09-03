@@ -4,21 +4,24 @@
 		<meta charset="utf-8" />
 		<title>Speed of Light WebGL</title>
 		<style>
-		body {
-			overflow: hidden;
+		html, body {
+  			width:  100%;
+  			height: 100%;
+  			margin: 0px;
+  			overflow: hidden;
 		}
 		canvas { 
 			cursor:crosshair;
 		}
-		#container div#menu{
-			position:absolute;
+		div#menu{
+			position:relative;
 			left:0px;
 			bottom:0px;
 			background: #0066EE;
 			width: 100%;
 			height: 50px;
 		}
-		#container div#menu a {
+		div#menu a {
 		 margin: 0px 20px 0px;	
 		}
 		</style>
@@ -28,9 +31,10 @@
 		
 		<div id="container">
 			<div id="fps" style="position: absolute; color: red;"></div>
-			<div id="menu">
+			
+		</div>
+		<div id="menu">
 				<a onclick="sMain.stage.startMap()" href="#">Start Map</a>
-			</div>
 		</div>
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>

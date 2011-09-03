@@ -4,5 +4,5 @@ function Config () {
 	this.clearAlpha = 1;
 	this.fps = 60;
 	this.canvasWidth = 1300;
-	this.canvasHeight= 700;
+	this.canvasHeight= window.innerHeight-50;
 }

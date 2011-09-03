@@ -1,6 +1,7 @@
 function Resources() {
 	this.data = null;
 	this.textures = Array;
+	this.track = new Audio;
 	this.init = function(callback) {
 		$.ajax({
   			url: 'resources.json',
@@ -26,7 +27,9 @@ function Resources() {
   			}
 		});
 	}
-
-	
-	
+	this.preloadMusic = function () {
+		sMain.resources.track.src = "music/stage1/1.ogg";
+		sMain.resources.track.autoplay = false;
+		sMain.resources.track.load();
+	}
 }

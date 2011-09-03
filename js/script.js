@@ -22,8 +22,7 @@ var sMain = new Object;
 	sMain.container = $('#container');
 	sMain.controls = new Controls();
 	// iniciamos la camara a cierta distancia
-	sMain.camera.position.y = -420;
-	sMain.camera.position.z = 1000;
+	
 	sMain.renderer.setSize(sMain.canvas.WIDTH, sMain.canvas.HEIGHT);
 	$('#container').append(sMain.renderer.domElement);
 	
@@ -65,7 +64,7 @@ var sMain = new Object;
 	sMain.scene.addChild(sMain.player);
 	
 	// luz ambiente
-	sMain.scene.addObject(new THREE.AmbientLight( 0x111111 ));
+	//sMain.scene.addObject(new THREE.AmbientLight( 0x111111 ));
 	
 	// creamos una luz color blanca
 	var light = new THREE.PointLight( 0xFFFFFF );
