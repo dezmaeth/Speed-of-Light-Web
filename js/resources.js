@@ -18,7 +18,7 @@ function Resources() {
 	this.get = function (path,callback) {
 		$.ajax({
   			url: path,
-  			dataType: 'json',
+  			dataType: 'script',
   			success: function (data) {
   			callback(data);
   			},

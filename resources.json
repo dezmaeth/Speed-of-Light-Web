@@ -1,6 +1,8 @@
 {"stage":{ 
+			"map": "maps/map1.js", 
 			"textures": {
-				"floor":"img/metal.jpg"
+				"floor":"img/metal.jpg",
+				"wall":"img/wall.jpg"
 				},
 			"music": {
 				"track":"music/stage1/1.ogg",
