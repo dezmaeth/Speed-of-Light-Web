@@ -15,16 +15,14 @@ function Stage() {
 		return cube;
 	}
 	
-	this.addMesh = function (mesh,key,callback) {
+	this.addMesh = function (mesh,callback) {
 		sMain.loader.load( { model: mesh, callback: function(geometry) {
 			geometry.materials[0][0].shading = THREE.FlatShading;
 		//	geometry.materials[0][0].morphTargets = true;
 			var material = new THREE.MeshFaceMaterial();
 			mesh = new THREE.Mesh( geometry, material );
 			mesh.scale.set(50, 50, 50);
-			sMain.stage.meshs[key] = mesh;
-			sMain.scene.addObject(sMain.stage.meshs[key]);
-			callback();
+			callback(mesh);
 			} 
 		} );
 	}

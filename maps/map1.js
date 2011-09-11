@@ -1,17 +1,20 @@
 var map = function () {
 		//creamos el mesh player
-		sMain.player = new THREE.Mesh( new THREE.SphereGeometry(40, 32, 32),new THREE.MeshLambertMaterial(	{ color: 0xFFFFFF }));
+		sMain.stage.addMesh(sMain.resources.data.stage.models.skull,function(mesh) {
+		sMain.player = mesh;
 		sMain.player.position.z = 50;
-	
-		// añadimos espefera a la escena
+		sMain.player.rotation.y = 1.5;
+		sMain.player.rotation.z = 1.5;
 		sMain.scene.addChild(sMain.player);
+		});
+		
 	
 		// luz ambiente
 		sMain.scene.addObject(new THREE.AmbientLight( 0x111111 ));
 	
 		// creamos una luz color blanca
 		var light = new THREE.PointLight( 0xFFFFFF );
-	// la posicionamos
+		// la posicionamos
 		light.position.x = 0;
 		light.position.y = 0;
 		light.position.z = 100;
@@ -45,14 +48,16 @@ var map = function () {
 		THREE.Collisions.colliders.push(THREE.CollisionUtils.MeshOBB(sMain.stage.meshs.wall2));
 		
 		// 1er modelo TARARAAAANNN!!!
-		sMain.stage.addMesh('models/asteroide.js','asteroid',function() { 
+		sMain.stage.addMesh(sMain.resources.data.stage.models.asteroid,function(mesh) { 
 			//animar asteroide
+			sMain.stage.meshs.asteroid = mesh;
+			sMain.scene.addObject(sMain.stage.meshs.asteroid);
 			sMain.stage.meshs.asteroid.position.y = 800;
 			(function rotateAsteroids(){
       		sMain.stage.meshs.asteroid.rotation.y += 1/60;
       		sMain.stage.meshs.asteroid.rotation.x += 1/60;
       		requestAnimationFrame(rotateAsteroids);
-    	})();	
+    		})();	
 		});
 		
 		

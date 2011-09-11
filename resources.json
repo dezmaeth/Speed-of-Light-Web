@@ -1,4 +1,8 @@
 {"stage":{ 
+			"models": {
+				"skull":"models/craneo.js",
+				"asteroid":"models/asteroide.js"
+			},
 			"map": "maps/map1.js", 
 			"textures": {
 				"floor":"img/metal.jpg",
