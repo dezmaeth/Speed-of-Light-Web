@@ -9,10 +9,6 @@ function Controls(player) {
 	 document.onkeydown = this.key_event;
      document.onkeypress = this.key_event;
 	}
-	
-
-		
-	
 
 	this.key_event = function(evt)
 	{

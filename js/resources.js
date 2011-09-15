@@ -16,10 +16,13 @@ function Resources() {
 		});
 	}
 	this.get = function (path,callback) {
+		sMain.loading++;
+		console.log('loading:'+path);
 		$.ajax({
   			url: path,
   			dataType: 'script',
   			success: function (data) {
+  			sMain.loaded++;
   			callback(data);
   			},
   			404: function () {

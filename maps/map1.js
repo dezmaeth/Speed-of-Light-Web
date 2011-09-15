@@ -1,15 +1,16 @@
 var map = function () {
 		//creamos el mesh player
-		sMain.stage.addMesh(sMain.resources.data.stage.models.skull,function(mesh) {
+		sMain.stage.addMesh(sMain.resources.data.stage.models.star,function(mesh) {
 		sMain.player = mesh;
 		sMain.player.position.z = 50;
-		sMain.player.rotation.y = 1.5;
-		sMain.player.rotation.z = 1.5;
+		sMain.player.rotation.y = 0;
+		sMain.player.rotation.z = 0;
 		sMain.scene.addChild(sMain.player);
 		});
 		
 	
 		// luz ambiente
+		sMain.scene.addObject(new THREE.AmbientLight( 0x111111 ));
 		sMain.scene.addObject(new THREE.AmbientLight( 0x111111 ));
 	
 		// creamos una luz color blanca
@@ -19,11 +20,6 @@ var map = function () {
 		light.position.y = 0;
 		light.position.z = 100;
 		light.intensity = 1;	
-		// añadimos un mesh a la luz para poder verla
-		light.mesh = Object;
-		light.mesh = new THREE.Mesh(new THREE.SphereGeometry(20,16,16), new THREE.MeshLambertMaterial({ color:0xFFFFF}));
-		light.mesh.position.z = 50;
-		sMain.scene.addChild(light.mesh);
 		
 		// añadiendo luz
 		sMain.scene.addChild(light);
@@ -96,4 +92,34 @@ var map = function () {
 				light.mesh.position.y = sMain.player.position.y+(evt.pageY - ((sMain.canvas.HEIGHT/2)))*-1;
 	  		}	  		
 		}
+		
+		//mecanicas
+		this.playerCrash = function () {
+			//sMain.render = false;
+			sMain.resources.track.pause();
+		}
+	
+		this.startMap = function() {
+			(function movePlayer(){
+    	  		sMain.player.position.x += 2;
+    	  		var ray = new THREE.Ray(sMain.player.position, new THREE.Vector3(0,0,10));
+				var c = THREE.Collisions.rayCastNearest(ray);
+				if (!c) { //test
+					sMain.camera.position.x = sMain.player.position.x;
+					sMain.camera.target.position.x = sMain.player.position.x;
+					sMain.scene.lights[0].position.x = sMain.player.position.x;
+					sMain.scene.lights[0].position.y = sMain.player.position.y;
+      				requestAnimationFrame(movePlayer);
+      			} else {
+					sMain.stage.playerCrash();	
+      			}
+    		})();
+    		//sMain.resources.track.play();
+		}
+		
+		//controles mapa
+		
+		
+		
+		
 }

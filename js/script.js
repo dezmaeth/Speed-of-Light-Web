@@ -1,5 +1,7 @@
 var sMain = new Object;
-	// clases globales para el sistema. 
+	// clases globales para el sistema.
+	sMain.loading=0;
+	sMain.loaded=0; 
 	sMain.resources = new Resources();
 	sMain.canvas = new Object;
 	sMain.config = new Config();
@@ -53,11 +55,6 @@ var sMain = new Object;
 		sMain.render = false;
 		clearInterval(sMain.interval);
 		clearInterval(sMain.showFPS);
-	}
-
-
-	sMain.loadStage = function (url) {
-		
 	}
 	// comenzamos a renderizar
 	sMain.startRendering();

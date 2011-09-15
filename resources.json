@@ -1,5 +1,6 @@
 {"stage":{ 
 			"models": {
+				"star":"models/estrella.js",
 				"skull":"models/craneo.js",
 				"asteroid":"models/asteroide.js"
 			},
