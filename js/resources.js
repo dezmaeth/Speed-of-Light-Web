@@ -1,17 +1,20 @@
 function Resources() {
 	this.data = null;
 	this.textures = Array;
+	this.meshs = Array;
 	this.track = new Audio;
-	this.init = function(callback) {
+	this.init = function(callback) {	
 		$.ajax({
   			url: 'resources.json',
   			dataType: 'json',
-  			success: function (data) {
+  			success: function (data) {		
   			sMain.resources.data = data;
+  			if (sMain.resources.data) {
+  			console.log("resources loaded");
   			callback();
-  			},
-  			404: function () {
-  				return null;
+  				} else {
+  			console.log("fatal error, couldn't load resources file");	
+  				}
   			}
 		});
 	}

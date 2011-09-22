@@ -1,5 +1,5 @@
 function Config () {
-	this.antialias = false;
+	this.antialias = true;
 	this.clearColor = 0x020202;
 	this.clearAlpha = 1;
 	this.fps = 60;

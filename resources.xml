@@ -1,0 +1,17 @@
+<stage>
+	<models>
+		<model name="star">models/estrella.js</star>
+		<model name="asteroid">models/asteroide.js</model>
+	</models>
+	<map>maps/map1.js</map>
+	<textures>
+		<floor>img/metal.jpg</floor>
+		<wall>img/wall.jpg</wall>
+		<part>img/star_.png</part>
+		<bg>img/bg.jpg</bg>
+	</textures>
+	
+	<audio>
+			<track>music/stage1/1.ogg</track>
+	</audio>
+</stage>

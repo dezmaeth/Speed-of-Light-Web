@@ -1,18 +1,24 @@
 {"stage":{ 
 			"models": {
-				"star":"models/estrella.js",
-				"skull":"models/craneo.js",
-				"asteroid":"models/asteroide.js"
+				"star": { 
+							"id":"star",
+							"value":"models/estrella.js" 
+						},
+				"asteroid":
+						{
+							"id":"asteroid",
+							"value":"models/asteroide.js"
+						}
 			},
 			"map": "maps/map1.js", 
 			"textures": {
 				"floor":"img/metal.jpg",
-				"wall":"img/wall.jpg"
+				"wall":"img/wall.jpg",
+				"part":"img/star_.png",
+				"bg":"img/bg.jpg"
 				},
-			"music": {
-				"track":"music/stage1/1.ogg",
-				"track":"music/stage1/2.ogg",
-				"track":"music/stage1/end.ogg"
+			"audio": {
+				"track":"music/stage1/1.ogg"
 			}
 		}
 }

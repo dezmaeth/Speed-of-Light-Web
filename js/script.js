@@ -58,7 +58,6 @@ var sMain = new Object;
 	}
 	// comenzamos a renderizar
 	sMain.startRendering();
-	// iniciamos controles
-	sMain.controls.init(sMain.player);
-	// creamos el mapa
-	sMain.stage.init();
+	//cuando termine de cargar iniciamos el mapa
+	sMain.stage.init();	
+	

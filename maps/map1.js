@@ -1,7 +1,17 @@
 var map = function () {
-		//creamos el mesh player
-		sMain.stage.addMesh(sMain.resources.data.stage.models.star,function(mesh) {
+		var models = sMain.resources.data.stage.models;
+		var textures = sMain.resources.data.stage.textures;
+		//preload
+		sMain.stage.loadMeshes(function() { 
+		//camara para este mapa
+		sMain.camera.position.y = -860;
+		sMain.camera.position.z = 3800;
+	
+	
+		//creamos el mesh player		
+		sMain.stage.addMesh(sMain.stage.models.star,function(mesh) {
 		sMain.player = mesh;
+		sMain.player.speed  = 20;
 		sMain.player.position.z = 50;
 		sMain.player.rotation.y = 0;
 		sMain.player.rotation.z = 0;
@@ -25,52 +35,31 @@ var map = function () {
 		sMain.scene.addChild(light);
 		
 		// suelo
-		sMain.stage.meshs.floor1 = sMain.stage.addCube(sMain.resources.data.stage.textures.floor);
-		sMain.scene.addObject(sMain.stage.meshs.floor1);
+	//	sMain.stage.meshs.floor1 = sMain.stage.addCube(sMain.resources.data.stage.textures.floor);
+		//sMain.scene.addObject(sMain.stage.meshs.floor1);
 		// suelo
-		sMain.stage.meshs.floor2 = sMain.stage.addCube(sMain.resources.data.stage.textures.floor);
-		sMain.scene.addObject(sMain.stage.meshs.floor2);
-		// suelo
-		sMain.stage.meshs.floor3 = sMain.stage.addCube(sMain.resources.data.stage.textures.floor);
-		sMain.scene.addObject(sMain.stage.meshs.floor3);
-		// 1er obstaculo
-		sMain.stage.meshs.wall = sMain.stage.addWall(sMain.resources.data.stage.textures.wall);
-		sMain.scene.addObject(sMain.stage.meshs.wall);
-		THREE.Collisions.colliders.push(THREE.CollisionUtils.MeshOBB(sMain.stage.meshs.wall));
-		
+	
 		//2do obstaculo
-		sMain.stage.meshs.wall2 = sMain.stage.addWall(sMain.resources.data.stage.textures.floor);
+/*		sMain.stage.meshs.wall2 = sMain.stage.addWall(sMain.resources.data.stage.textures.floor);
 		sMain.scene.addObject(sMain.stage.meshs.wall2);
-		THREE.Collisions.colliders.push(THREE.CollisionUtils.MeshOBB(sMain.stage.meshs.wall2));
+		THREE.Collisions.colliders.push(THREE.CollisionUtils.MeshOBB(sMain.stage.meshs.wall2));*/
 		
-		// 1er modelo TARARAAAANNN!!!
-		sMain.stage.addMesh(sMain.resources.data.stage.models.asteroid,function(mesh) { 
-			//animar asteroide
-			sMain.stage.meshs.asteroid = mesh;
-			sMain.scene.addObject(sMain.stage.meshs.asteroid);
-			sMain.stage.meshs.asteroid.position.y = 800;
-			(function rotateAsteroids(){
-      		sMain.stage.meshs.asteroid.rotation.y += 1/60;
-      		sMain.stage.meshs.asteroid.rotation.x += 1/60;
-      		requestAnimationFrame(rotateAsteroids);
-    		})();	
-		});
-		
-		
-		//position
-		sMain.stage.meshs.floor2.position.x = 500;
-		
-		sMain.stage.meshs.floor2.position.y = 320;
-		//
-		sMain.stage.meshs.wall.position.x = 600;
-		sMain.stage.meshs.wall.position.z = 130;
-		//
-		sMain.stage.meshs.wall2.position.x = 1200;
-		sMain.stage.meshs.wall2.position.y = 300;
-		sMain.stage.meshs.wall2.position.z = 130;
-		//camara para este mapa
-		sMain.camera.position.y = -860;
-		sMain.camera.position.z = 1000;
+		sMain.stage.asteroide = function(far){ 
+				sMain.stage.addMesh(sMain.stage.models.asteroid,function(mesh) { 
+				//animar asteroide
+				sMain.stage.meshs.asteroide = mesh;
+				sMain.scene.addObject(sMain.stage.meshs.asteroide);
+				THREE.Collisions.colliders.push(THREE.CollisionUtils.MeshOBB(sMain.stage.meshs.asteroide));
+				sMain.stage.meshs.asteroide.position.x = sMain.player.position.x + 2000;
+				(function rotateAsteroides(){
+      				sMain.stage.meshs.asteroide.rotation.y += 1/60;
+      				sMain.stage.meshs.asteroide.rotation.x += 1/60;
+      				sMain.stage.meshs.asteroide.position.x -= 10;
+      				requestAnimationFrame(rotateAsteroides); // fix a multiples
+    			})();	
+			});
+		};
+
 		
 		
 		
@@ -94,17 +83,18 @@ var map = function () {
 		}
 		
 		//mecanicas
-		this.playerCrash = function () {
-			//sMain.render = false;
+		sMain.stage.playerCrash = function () {
+			sMain.scene.removeChild(sMain.player);
 			sMain.resources.track.pause();
+			sMain.stage.addParticleSystem(textures.part,100,1000,sMain.player.position);
+			//sMain.render = false;
 		}
 	
-		this.startMap = function() {
+		sMain.stage.startMap = function() {
 			(function movePlayer(){
-    	  		sMain.player.position.x += 2;
-    	  		var ray = new THREE.Ray(sMain.player.position, new THREE.Vector3(0,0,10));
-				var c = THREE.Collisions.rayCastNearest(ray);
-				if (!c) { //test
+    	  		sMain.player.position.x += sMain.player.speed;
+				var x = THREE.Collisions.rayCastNearest(new THREE.Ray(sMain.player.position, new THREE.Vector3(0,0,1)));
+				if (!x) {
 					sMain.camera.position.x = sMain.player.position.x;
 					sMain.camera.target.position.x = sMain.player.position.x;
 					sMain.scene.lights[0].position.x = sMain.player.position.x;
@@ -114,12 +104,41 @@ var map = function () {
 					sMain.stage.playerCrash();	
       			}
     		})();
-    		//sMain.resources.track.play();
+    //		sMain.resources.track.play();
 		}
 		
 		//controles mapa
 		
-		
-		
-		
+	sMain.controls.key_event = function(evt)
+		{
+		console.log(evt.keyCode);
+			if (evt.keyCode==38)
+				sMain.player.position.y += 20;
+			if (evt.keyCode==40)
+				sMain.player.position.y -= 20; 
+			if (evt.keyCode==36) 
+				sMain.camera.position.y -= 10;
+			if (evt.keyCode==46) 
+				sMain.camera.position.y += 10;
+			if (evt.keyCode==34) 
+				sMain.camera.position.z -= 10;
+			if (evt.keyCode==33) {
+				sMain.camera.position.z += 10;
+				}
+			if (evt.keyCode==82) {
+				sMain.stage.asteroide();
+				}
+			if (evt.keyCode==80) {
+				for (var i in sMain.stage.meshs) {
+				sMain.scene.removeChild(sMain.stage.meshs[i]);	
+				}
+				sMain.scene.removeChild(sMain.player);
+				sMain.stage.addParticleSystem(textures.part,10000,1000,sMain.player.position);
+				//sMain.stage.startMap();
+			}	
+		}
+	
+	// iniciamos controles
+	sMain.controls.init(sMain.player);
+	});
 }
