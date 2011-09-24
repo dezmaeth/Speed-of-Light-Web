@@ -14,21 +14,22 @@ var sMain = new Object;
 	sMain.editing = false;
 	sMain.stage = new Stage();
 	sMain.loader = new THREE.JSONLoader();
+	sMain.keyboard = new THREEx.KeyboardState();
 	sMain.map;
 	
 	//creamos una camara webgl, un gestor de rendering y la escena
 	sMain.renderer = new THREE.WebGLRenderer({ clearColor: sMain.config.clearColor,
 											   clearAlpha: sMain.config.clearAlpha, 
 											   antialias: sMain.config.antialias });
-											   
+	sMain.renderer.id = "canv";										   
 	sMain.camera = new THREE.Camera(50,(sMain.canvas.WIDTH / sMain.canvas.HEIGHT),0.5,100000 ); 
 	sMain.scene = new THREE.Scene();
-	sMain.container = $('#container');
+	sMain.container = $('#main');
 	sMain.controls = new Controls();
 	// iniciamos la camara a cierta distancia
 	
 	sMain.renderer.setSize(sMain.canvas.WIDTH, sMain.canvas.HEIGHT);
-	$('#container').append(sMain.renderer.domElement);
+	sMain.container.append(sMain.renderer.domElement);
 	
 	sMain.renderCanvas = function () {
 		if (sMain.render) {
@@ -42,6 +43,8 @@ var sMain = new Object;
 		(function render(){
       	sMain.renderCanvas();
       	requestAnimationFrame(render);
+      	if (typeof(sMain.controls.keys) == 'function')
+      	sMain.controls.keys();
     	})();
 		sMain.showFPS = setInterval('sMain.drawFPS()',1000);
 	}

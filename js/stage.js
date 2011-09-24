@@ -1,6 +1,7 @@
 function Stage() {
 	this.v = 1; /* velocidad horizontal jugador inicial segun mapa */
 	this.meshs = new Object; 
+	this.meshsCount = 0;
 	this.models = new Object;
 	this.init = function () {
 		//obtener recursos
@@ -34,16 +35,17 @@ function Stage() {
 						}
 					}
 					})(id,call)
-			});		
+			});
 		}
-	}	
+	}
 	
-	this.addMesh = function (geometry,callback) {
+	this.addMesh = function (geometry,id,callback) {
+			this.meshsCount++;
 			geometry.materials[0][0].shading = THREE.FlatShading;
-		//	geometry.materials[0][0].morphTargets = true;
-			var material = new THREE.MeshFaceMaterial();
+			var material = new THREE.MeshFaceMaterial({ color: 0xFFFFFF });
 			mesh = new THREE.Mesh( geometry, material );
 			mesh.scale.set(50, 50, 50);
+			var mesh = sMain.stage.meshs[id+sMain.stage.meshsCount] = mesh;
 			callback(mesh); 
 	}
 	
@@ -100,11 +102,19 @@ function Stage() {
 		requestAnimationFrame(explota);
 		})();
 	}
+	this.moveAll = function(){
+				for (var i in sMain.stage.meshs) {
+					if (typeof(sMain.stage.meshs[i].move) == 'function') 
+					sMain.stage.meshs[i].move();
+			}
+			requestAnimationFrame(sMain.stage.moveAll);
+	}
 	
 	this.createMap = function () {
 		sMain.resources.get(sMain.resources.data.stage.map,function(data) {
 			console.log("map created");
 			map();
+			sMain.stage.moveAll();
 		}); 
 	}
 }

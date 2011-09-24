@@ -209,8 +209,20 @@ td { vertical-align: top; }
 
 
 /* ==|== primary styles =====================================================
-   Author:
+   Author: Francisco Javier Henseleit Palma
    ========================================================================== */
+
+#status {
+	color:red;
+	font-size: 30px;
+	position: absolute;
+}
+
+
+footer span {
+	margin-left: 10px;
+}
+
 
 
 

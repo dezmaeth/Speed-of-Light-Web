@@ -6,7 +6,7 @@ function Controls(player) {
 	this.canvasMaxX = 0;
 	this.canvasMaxY = 0;
 	this.init =  function() {
-	 document.onkeydown = sMain.controls.key_event;
-     document.onkeypress = sMain.controls.key_event;
+	/* document.onkeydown = sMain.controls.key_event;
+     document.onkeypress = sMain.controls.key_event;*/ 
 	}
 }
